@@ -1,0 +1,19 @@
+networks:
+  test_network:
+    ipam:
+      config:
+        - subnet: 10.220.0.0/16
+          gateway: 10.220.0.5
+
+services:
+  basic_page:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    image: basic_page
+    command: "node /home/dev/node-files/node_server.js"
+    volumes:
+      - "./node-files:/home/dev/node-files"
+    networks:
+      test_network:
+        ipv4_address: 10.220.0.10
